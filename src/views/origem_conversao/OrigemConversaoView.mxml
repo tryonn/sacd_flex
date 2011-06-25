@@ -4,7 +4,7 @@
 				xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:code="http://code.google.com/p/flexlib/" layout="absolute" width="534" height="370"
 				title="Cadastro Origem Conversão"
 				creationComplete="init(event)" xmlns:components="components.*">
-	
+
 	<fx:Script source="actions/origemConversaoActions.as"/>
 	<fx:Declarations>
 		<mx:DateFormatter id="dateFormatter" formatString="DD/MM/YYYY" />
@@ -13,7 +13,8 @@
 	<s:Label x="10" y="69" text="Descrição:"/>
 	<s:Label id="data" x="307" y="21" text="Data de Conversão:"/>
 	<mx:DataGrid bottom="56" left="10" right="10" top="166" id="dgOrigemConversao"
-				 dataProvider="{_datagridOrigemConversao}" change="registroSelecionado(event)">
+				 dataProvider="{_datagridOrigemConversao}" change="registroSelecionado(event)"
+				 click="dgOrigemConversao_clickHandler(event)">
 		<mx:columns>
 			<mx:DataGridColumn dataField="descricao" headerText="Descrição"/>
 			<mx:DataGridColumn dataField="nome_igreja" headerText="Igreja"/>
@@ -23,11 +24,11 @@
 	</mx:DataGrid>
 	<s:HGroup left="10" right="9" gap="0" verticalAlign="middle" bottom="10" height="38">
 		<mx:HRule width="100%" visible="false"/>
-		<s:Button label="Novo" id="btnNovo" cornerRadius="5"/>
-		<s:Button label="Salvar" id="btnSalvar" cornerRadius="5" click="btnNovo_clickHandler(event)"/>
-		<s:Button label="Alterar" id="btnAlterar" cornerRadius="5"/>
-		<s:Button label="Excluir" id="btnDeleta" cornerRadius="5"/>
-		<s:Button label="Cancelar" id="btnCancelar" cornerRadius="5"/>
+		<s:Button label="Novo" id="btnNovo" cornerRadius="5" click="btnNovo_clickHandler(event)"/>
+		<s:Button label="Salvar" id="btnSalvar" cornerRadius="5" click="btnSalvar_clickHandler(event)"/>
+		<s:Button label="Alterar" id="btnAlterar" cornerRadius="5" click="btnAlterar_clickHandler(event)"/>
+		<s:Button label="Excluir" id="btnDeleta" cornerRadius="5" click="btnDeleta_clickHandler(event)"/>
+		<s:Button label="Cancelar" id="btnCancelar" cornerRadius="5" click="btnCancelar_clickHandler(event)"/>
 	</s:HGroup>
 	<s:TextInput x="425" y="41" width="96" id="txtAno"/>
 	<s:TextInput x="10" y="39" width="292" id="txtNmIgreja"/>

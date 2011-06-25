@@ -18,8 +18,34 @@ class Origem_conversaoDAO implements Origem_conversaoInterface{
 
     }
     public function excluir($id) {
-
+        
+        $valida =   "select * from origem_conversao
+                    inner join membros on membros.origem_conversao_id = origem_conversao.id
+                    where origem_conversao.id = '$id';";
+        $stmt = $this->conn->prepare($valida); 
+        $stmt->bindParam(1,$id,PDO::PARAM_INT);
+        $rs = $stmt->execute();
+       
+        if($stmt->rowCount()>0){
+            $rs = $stmt->fetchAll( );
+//             var_dump($rs);
+            $retorno['mensagem'] = "Cadastro com o ID :  '$id' " . utf8_decode(' não ') . "pode ser deletado,
+               pois esta associado a um Membro!";                            
+        } else
+        {
+            try {           
+                    $sqlDelete = "DELETE FROM origem_conversao WHERE id= '$id'";
+                    $stmt = $this->conn->prepare($sqlDelete);
+                    $stmt->bindParam(1,$id,PDO::PARAM_INT);
+                    $stmt->execute();
+                    $retorno['mensagem'] = "Cadastro" . utf8_decode(' excluído ') . "com Sucesso!";            
+            } catch (Exception $e) {
+                    $retorno['mensagem'] = "Error : " . $e->getMessage(); 
+            }
+        }
+        return $retorno;
     }
+    
     public function getListar() {
         $sqlLista = "select *,DATE_FORMAT(dtConversao,'%d/%m/%Y') AS dtConversao from origem_conversao";
         try {        

@@ -30,6 +30,11 @@ package ro
 			_async = _ro_origemConversao.inserir(_origemConversao);
 			_async.addResponder(new Responder(result, defaultFaultHandler));
 		}
+		public function deleta(_origem_conversao:Origem_conversaoVO, result:Function):void
+		{
+			_async = _ro_origemConversao.excluir(_origem_conversao.id);
+			_async.addResponder(new Responder(result, defaultFaultHandler));
+		}
 		
 		
 		private function defaultFaultHandler(e:FaultEvent):void{
