@@ -1,0 +1,15 @@
+<swiz:BeanProvider
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:swiz="http://swiz.swizframework.org" 
+	xmlns:services="services.*" 
+	xmlns:controllers="controllers.*" 
+    >
+	<swiz:ServiceHelper id="serviceHelper"/>
+	
+	<services:EnderecoService id="enderecoService"/>
+	<controllers:EnderecoController id="enderecoController"/>
+	<controllers:MDIController id="mdiController"/>
+
+	
+</swiz:BeanProvider>

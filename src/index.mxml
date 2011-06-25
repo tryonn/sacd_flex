@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   minWidth="600" minHeight="600" 
+			   xmlns:swiz="http://swiz.swizframework.org" 
+			   xmlns:config="config.*" 
+			   xmlns:flexlib="http://code.google.com/p/flexlib/" 
+			   width="100%" height="100%" backgroundColor="#FFFFFF" 
+			   preloaderChromeColor="#084E5D" pageTitle="SACD - Sistema Aliança com Deus" currentState="Login"
+			   >	
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	<fx:Style source="index_1.css"/>
+
+	<fx:Script>
+		<![CDATA[
+			import controllers.MDIController;
+			
+			import flexlib.mdi.effects.effectsLib.MDIVistaEffects;
+			
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.events.MenuEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import br.com.aliancadeus.vo.UsuarioVO;
+			[Bindable]
+			public var login:String;
+			[Bindable]
+			public var senha:String;
+			[Bindable]
+			public var user:UsuarioVO = new UsuarioVO();			
+			[Inject]
+			public var mdiController:MDIController;
+			
+			/* ################################################### */
+			
+			public function Autelogin():void{
+				login = user.login = login;
+				senha = user.senha = senha;				
+				if(txtlogin.text != "" && txtsenha.text != ""){
+					//chama o metodo autentica do lado do php passnado dois parametros
+					servicoLogin.autenticar(login, senha);
+					//Alert.show("Logado","Mensagem !!!");					
+				} else
+				{
+					Alert.show("Preencha todos os campos","TENÇÃO !!!");
+					/* principal.currentState="princinpal"; */
+				}
+			}
+			public function chamalogin():void{
+				Autelogin();
+			}			
+			//##################
+			public function onResultLogin(e:ResultEvent):void{
+				if(e.result.login == "OK"){
+					//Mensagem que vem do php
+					Alert.show(".:" + e.result.user + " :.", "Seja Bem vindo ao Simad");
+					/* 					dispatchEvent(new Event("login_OK")); */
+					currentState = "Principal";
+					lbUser.text = e.result.nome; 
+				} else {
+					//Mensagem que vem do php					
+					Alert.show(e.result.mensagem, e.result.login);
+				}
+			}			
+			//#################		
+			/* public function onResultLogin(e:ResultEvent):void{
+			Alert.show(e.result.toString(), "simao : " );					
+			} */
+			protected function btnAcesso_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				chamalogin();
+			}
+			protected function logout():void
+			{
+				servicoLogin.sessionDestroy();
+				currentState = "Login";
+				limpaDadosLogin();
+			}
+			protected function onResultLogout(e:ResultEvent):void
+			{
+				Alert.show("Atenção", e.result.toString());
+			}
+			protected function btnLogout_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				logout();
+			}
+			protected function logado():void
+			{
+				servicoLogin.estaLogado();
+				retornaNome();
+			}
+			protected function onEstaLogado(e:ResultEvent):void
+			{
+				if(e.result.logado == "OK"){
+					/* Alert.show("Usuario já está Logado"); */
+					retornaNome();
+					currentState = "Principal";
+					//lblContador.text = "Esse é seu acesso de número: " + e.result.contador;
+					//lblTempo.text = "Tempo de acesso: " + e.result.tempo  + " segundos"; 
+				} else{
+					currentState = "Login";
+				}
+			}
+			
+			protected function retornaNome():void{
+				servicoLogin.retornaNome();
+			}
+			protected function onResultRetornaNome(e:ResultEvent):void
+			{
+				/* Alert.show(e.result.nome); */
+				lbUser.text = e.result.nome;
+			}
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				logado();
+			}
+			
+			protected function limpaDadosLogin():void
+			{
+				txtlogin.text = "";
+				txtsenha.text = "";
+			}
+			
+			/* ################################################## */
+			public function myMenuBar_itemClickHandler(event:MenuEvent):void
+			{  
+				/* if (event.item.@data != "top") {
+				Alert.show("Label: " + event.item.@label + "\n" + 
+				"Data: " + event.item.@data, "Clicked menu item");
+				} */	
+				var janela:String = event.item.@data;
+				switch(janela){
+					case "1":
+						janelaEndereroView();
+						break;
+					case "2":
+						janelaOrigemConversaoView();
+						break;
+					case "3":
+						janelaMembros();
+						break;
+					default:
+						Alert.show("Janela não Exite","Atenção!!!");
+				}
+			}
+
+		]]>
+	</fx:Script>
+
+	<fx:Script source="util/utilIndex.as"/>
+	<fx:Script source="util/janelasUtil.as"/>	
+	<s:states>
+		<s:State name="Principal"/>
+		<s:State name="Login"/>
+	</s:states>
+	<fx:Declarations>
+		<s:RemoteObject id="servicoLogin" destination="amfphp" source="autentica.Autenticacao">
+			<s:method name="autenticar" result="onResultLogin(event)">
+				<s:arguments>
+					<login>{txtlogin.text}</login>
+					<senha>{txtsenha.text}</senha>
+				</s:arguments>
+			</s:method>
+			<s:method name="estaLogado" result="onEstaLogado(event)"/>
+			<s:method name="sessionDestroi" result="onResultLogout(event)"/>
+			<s:method name="retornaNome" result="onResultRetornaNome(event)"/>
+		</s:RemoteObject>		
+	</fx:Declarations>
+	<fx:Declarations>
+		<swiz:Swiz>
+			<swiz:beanProviders>
+				<config:Beans/>
+			</swiz:beanProviders>
+			
+			<swiz:config>
+				<swiz:SwizConfig 
+					eventPackages="events.*" 
+					viewPackages="views.*" 
+					/>
+			</swiz:config>
+			
+			<swiz:loggingTargets>
+				<swiz:SwizTraceTarget id="myTraceTarget" />
+			</swiz:loggingTargets>
+		</swiz:Swiz>
+	</fx:Declarations>
+	<fx:Binding source="txtlogin.text" destination="login" twoWay="true"/>
+	<fx:Binding source="txtsenha.text" destination="senha" twoWay="true"/>
+	<s:creationComplete>
+		<![CDATA[
+			//Registro dos VOs
+			registerClassAlias("br.com.aliancadeus.vo.UsuarioVO",br.com.aliancadeus.vo.UsuarioVO);
+			logado();
+		]]>
+	</s:creationComplete>
+	
+	<s:controlBarContent.Principal>
+		<fx:Array>
+			<s:Label text=":. SACD - Sistema Aliança com Deus .: " styleName="lblTitulo" width="100%"/>
+			<mx:MenuBar id="myMenuBar0" labelField="@label" itemClick="myMenuBar_itemClickHandler(event)"
+						x="6" y="8" width="100%">
+				<fx:XMLList>
+					<menuitem label="Cadastros">
+						<menuitem label="Endereços" 	data="1"/>
+						<menuitem label="Membros" 	data="5"/>
+						<menuitem label="Dependentes" 	data="3"/>
+						<menuitem label="Usuários" 	data="4"/>
+						<menuitem label="Origem Conversão" 	data="2"/>
+						<menuitem label="Membros" 	data="6"/>						
+					</menuitem>
+					<menuitem label="MenuItem B">
+						<menuitem label="12334" enabled="false" data="3"/>
+						<menuitem label="sara" data="2"/>
+					</menuitem>	
+					<menuitem label="Menu 002">
+						<menuitem label="nova janela" data="3"/>
+					</menuitem>
+					<menuitem label="MenuItem D">
+						<menuitem label="SubMenuItem D-1" 
+								  type="radio" groupName="one"/>
+						<menuitem label="SubMenuItem D-2" 
+								  type="radio" groupName="one"
+								  selected="true"/>
+						<menuitem label="SubMenuItem D-3" 
+								  type="radio" groupName="one"/>
+					</menuitem>
+				</fx:XMLList>
+			</mx:MenuBar>
+			<s:Label id="lbUser" text="Usuário: " styleName="lblTitulo"/>
+			<mx:HRule width="100%" y="0" visible="false"/>
+			<s:Button id="btnLogout0" label="Sair" click="btnLogout_clickHandler(event)"/>
+		</fx:Array>
+	</s:controlBarContent.Principal>
+	<flexlib:MDICanvas  id="myCanvas"
+						horizontalScrollPolicy="off"
+						verticalScrollPolicy="off"
+						effectsLib="{flexlib.mdi.effects.effectsLib.MDIVistaEffects}"
+						width="100%"
+						height="100%"
+						
+						 top="55" includeIn="Principal">
+		<flexlib:creationComplete>
+			<![CDATA[
+				mdiController.mdiCanvas = myCanvas;			
+			]]>
+		</flexlib:creationComplete>
+	</flexlib:MDICanvas>	
+	<s:Panel width="292" height="216" title="Acesso ao Sistema!" id="panelLogin" horizontalCenter="-1" verticalCenter="2" styleName="login" color="#FFFFFF" includeIn="Login">
+		<s:layout>
+			<s:BasicLayout/>
+		</s:layout>
+		<s:controlBarContent>
+		
+		</s:controlBarContent>
+		<s:Button id="btnAcesso" x="118" y="93" label="Acesso" click="btnAcesso_clickHandler(event)"/>
+		<s:Label x="46" y="37" text="Login" color="#333333"/>
+		<s:Label x="46" y="64" text="Senha" color="#333333"/>
+		<s:TextInput id="txtlogin" text="@{user.login}" x="93" y="32" color="#333333"/>
+		<s:TextInput id="txtsenha" text="@{user.senha}" x="93" y="64" displayAsPassword="true" color="#333333"/>
+	</s:Panel>
+	<s:HGroup includeIn="Principal" x="-1" y="2" width="100%" height="45" verticalAlign="middle">
+		<s:ToggleButton label="Toggle Button"/>
+		<s:Button label="Button" buttonMode="true"/>
+	</s:HGroup>
+</s:Application>

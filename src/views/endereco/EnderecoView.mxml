@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<code:MDIWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				xmlns:code="http://code.google.com/p/flexlib/" 
+				layout="absolute" width="546" height="456"
+				title="Cadastro de Endereços"
+				creationComplete="init(event)">
+	
+	<fx:Script source="actions/enderecoAction.as"/>
+<!--	<fx:Declarations>
+		<fx:Model id="endereco">
+			<endereco>
+				<bairro>
+					{txtBairro.text}	
+				</bairro>
+				<cep>
+					{txtCep.text}
+				</cep>
+				<cidade>
+					{txtCidade.text}						
+				</cidade>
+				<complemento>
+					{txtComplemento.text}					
+				</complemento>		
+				<numero>
+					{txtNumero.text}				
+				</numero>
+			</endereco>
+		</fx:Model>	
+		<mx:Validator required="true" id="formEndereco"
+					  source="{endereco}"
+					  property="bairro"
+					  trigger="{btnSalvar}"
+					  triggerEvent="click"
+					  listener="{txtBairro}"
+					  />
+	</fx:Declarations>-->
+	
+	<s:Label x="20" y="10" text="Cidade:"/>
+	<s:Label x="200" y="10" text="Bairro:"/>
+	<s:Label x="20" y="56" text="Estado:"/>
+	<s:Label x="315" y="56" text="Número:"/>
+	<s:Label x="18" y="107" text="Complemento:"/>
+	<s:Label x="198" y="56" text="Cep:"/>
+	<s:TextInput x="16" y="26" width="176" id="txtCidade" tabIndex="0"
+				 toolTip="Campo Obrigatorio"/>
+	<s:TextInput x="198" y="26" width="316" id="txtBairro" tabIndex="1"/>
+	<s:TextInput x="198" y="74" width="108" id="txtCep" tabIndex="3"/>
+	<s:TextInput x="313" y="74" width="68" id="txtNumero" tabIndex="4" />
+	<mx:ComboBox x="16" y="73" width="174" id="_cbEstado" selectedIndex="0"
+				dataProvider="{_estadosBr}" tabIndex="2"/>
+	<s:TextArea x="16" y="127" width="498" height="63" id="txtComplemento" maxChars="300" tabIndex="5"/>
+	<mx:DataGrid left="16" right="30" top="203" bottom="55" id="dgEndereco"
+				 dataProvider="{_datagridEndereco}" change="registroSelecionado(event)"
+				 click="dgEndereco_clickHandler(event)">
+		<mx:columns>
+			<mx:DataGridColumn headerText="ID" dataField="id"/>
+			<mx:DataGridColumn headerText="Bairro" dataField="bairro"/>
+			<mx:DataGridColumn headerText="Cidade" dataField="cidade"/>
+			<mx:DataGridColumn headerText="Estado" dataField="uf"/>
+			<mx:DataGridColumn headerText="Número" dataField="numero"/>
+			<mx:DataGridColumn headerText="Complemento" dataField="complemento"/>			
+			<mx:DataGridColumn headerText="Cep" dataField="cep"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<s:HGroup left="10" right="29" gap="0" verticalAlign="middle" bottom="10" height="38">
+		<mx:HRule width="100%" visible="false"/>
+		<s:Button label="Novo" id="btnNovo" cornerRadius="5" click="btnNovo_clickHandler(event)"/>
+		<s:Button label="Salvar" id="btnSalvar" cornerRadius="5" click="btnSalvar_clickHandler(event)" tabIndex="6"/>
+		<s:Button label="Alterar" id="btnAlterar" cornerRadius="5" click="btnAlterar_clickHandler(event)"/>
+		<s:Button label="Excluir" id="btnDeleta" cornerRadius="5" click="btnDeleta_clickHandler(event)"/>
+		<s:Button label="Cancelar" id="btnCancelar" cornerRadius="5" click="btnCancelar_clickHandler(event)"/>
+	</s:HGroup>
+	<s:Label x="66" y="13" text="*" color="#F60C0C" verticalAlign="middle" textAlign="center"/>
+	<s:Label x="246" y="13" text="*" color="#F60C0C" verticalAlign="middle" textAlign="center"/>
+	<s:Label x="232" y="59" text="*" color="#F60C0C" verticalAlign="middle" textAlign="center"/>
+	<s:Label x="372" y="59" text="*" color="#F60C0C" verticalAlign="middle" textAlign="center"/>
+	<s:Label x="66" y="59" text="*" color="#F60C0C" verticalAlign="middle" textAlign="center"/>
+</code:MDIWindow>
+

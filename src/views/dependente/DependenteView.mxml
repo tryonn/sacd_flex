@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<code:MDIWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:code="http://code.google.com/p/flexlib/"
+				layout="absolute" width="482" height="356"
+				title="Cadastro de Dependentes">
+	<s:Label x="10" y="20" text="Nome:"/>
+	<s:Label x="244" y="20" text="Data de Nascimento:"/>
+	<s:Label x="10" y="70" text="Membro:"/>
+	<s:ComboBox x="10" y="90"/>
+	<mx:DateField x="244" y="39" width="117"/>
+	<s:TextInput x="10" y="40" width="226"/>
+	<s:Button x="166" y="92" label="Button" cornerRadius="5"/>
+	<mx:DataGrid id="dgDependente" left="10" right="10" bottom="56" top="121">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nome" dataField="nome"/>
+			<mx:DataGridColumn headerText="Data de Nascimento" dataField="data_nascimento"/>
+			<mx:DataGridColumn headerText="Membro" dataField="membro"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<s:HGroup left="10" right="9" gap="0" verticalAlign="middle" bottom="10" height="38">
+		<mx:HRule width="100%" visible="false"/>
+		<s:Button label="Novo" id="btnNovo" cornerRadius="5"/>
+		<s:Button label="Salvar" id="btnSalvar" cornerRadius="5" tabIndex="6"/>
+		<s:Button label="Alterar" id="btnAlterar" cornerRadius="5"/>
+		<s:Button label="Excluir" id="btnDeleta" cornerRadius="5"/>
+		<s:Button label="Cancelar" id="btnCancelar" cornerRadius="5"/>
+	</s:HGroup>
+</code:MDIWindow>
