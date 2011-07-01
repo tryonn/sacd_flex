@@ -25,15 +25,17 @@
 	<s:HGroup left="10" right="9" gap="0" verticalAlign="middle" bottom="10" height="38">
 		<mx:HRule width="100%" visible="false"/>
 		<s:Button label="Novo" id="btnNovo" cornerRadius="5" click="btnNovo_clickHandler(event)"/>
-		<s:Button label="Salvar" id="btnSalvar" cornerRadius="5" click="btnSalvar_clickHandler(event)"/>
+		<s:Button label="Salvar" id="btnSalvar" cornerRadius="5" click="btnSalvar_clickHandler(event)" tabIndex="5"/>
 		<s:Button label="Alterar" id="btnAlterar" cornerRadius="5" click="btnAlterar_clickHandler(event)"/>
 		<s:Button label="Excluir" id="btnDeleta" cornerRadius="5" click="btnDeleta_clickHandler(event)"/>
 		<s:Button label="Cancelar" id="btnCancelar" cornerRadius="5" click="btnCancelar_clickHandler(event)"/>
 	</s:HGroup>
-	<s:TextInput x="425" y="41" width="96" id="txtAno"/>
-	<s:TextInput x="10" y="39" width="292" id="txtNmIgreja"/>
+	<s:TextInput x="425" y="41" width="96" id="txtAno" tabIndex="3"/>
+	<s:TextInput x="10" y="39" width="292" id="txtNmIgreja" tabIndex="1"/>
 	<s:Label x="425" y="22" text="Ano de conversão:"/>
 	<s:Label x="12" y="21" text="Nome da Igreja:"/>
-	<s:TextArea x="10" y="89" width="511" height="69" id="txtDescricao"/>
-	<components:DateFieldpt id="txtDtConversao" x="306" y="39" width="111"/>
+	<s:TextArea x="10" y="89" width="511" height="69" id="txtDescricao" tabIndex="4"/>
+	<components:DateFieldpt id="txtDtConversao" x="306" y="39" width="111" tabIndex="2"/>
+	
+	
 </code:MDIWindow>

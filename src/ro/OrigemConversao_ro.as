@@ -36,6 +36,11 @@ package ro
 			_async.addResponder(new Responder(result, defaultFaultHandler));
 		}
 		
+		public function atualiza(_origem_conversao:Origem_conversaoVO, result:Function):void
+		{
+			_async = _ro_origemConversao.atualizar(_origem_conversao);
+			_async.addResponder(new Responder(result, defaultFaultHandler));
+		}
 		
 		private function defaultFaultHandler(e:FaultEvent):void{
 			Alert.show(e.fault.faultDetail, e.fault.message);

@@ -61,11 +61,11 @@ import ro.Endereco_ro;
 	protected function btnSalvar_clickHandler(event:MouseEvent):void
 	{		
 		if(
-			txtBairro.text 		!= "" 		||
-			txtBairro.text 		!= "" 		||
-			txtCep.text 		!= ""		||
-			txtCidade.text 		!= ""		||
-			txtComplemento.text != ""		||
+			txtBairro.text 		!= "" 		&&
+			txtBairro.text 		!= "" 		&&
+			txtCep.text 		!= ""		&&
+			txtCidade.text 		!= ""		&&
+			txtComplemento.text != ""		&&
 			txtNumero.text 		!= "")
 		{
 			_enderecoVO.bairro = txtBairro.text;

@@ -33,15 +33,17 @@ import util.Util;
 	public function init(event:FlexEvent):void
 	{
 		_ro_origemConversao.listOrigemConversao(listaRegistroOrigem);
+		leituraTxtInput();
+		leituraBtn();
 	}
 	/*-------------------------------------------------------------*/
 	
 	/*------------------- Funão do método salvar ----------------------------------*/
 	protected function btnSalvar_clickHandler(event:MouseEvent):void
 	{
-		if(	txtAno.text 			!= "" ||
-			txtDescricao.text 		!= "" ||
-			txtNmIgreja.text 		!= "" ||
+		if(	txtAno.text 			!= "" &&
+			txtDescricao.text 		!= "" &&
+			txtNmIgreja.text 		!= "" &&
 			txtDtConversao.text 	!= "")
 		{
 			_origemConversao.ano = parseInt(txtAno.text);
@@ -88,6 +90,22 @@ import util.Util;
 	/*-----------------------------------------------------------------------*/
 	protected function btnAlterar_clickHandler(event:MouseEvent):void
 	{
+		_origemConversao.id = _registroSelecionado.id;
+		_origemConversao.ano = parseInt(txtAno.text);
+		_origemConversao.descricao = txtDescricao.text;
+		_origemConversao.nome_igreja = txtNmIgreja.text;
+		_origemConversao.dtConversao = MySQLDateHelper.formatToMySQL(txtDtConversao.selectedDate);		
+		
+		_ro_origemConversao.atualiza(_origemConversao, atualizarResult)
+
+		clearRecord();
+		leituraTxtInput();
+	}
+	private function atualizarResult(e:ResultEvent):void
+	{
+		_datagridOrigemConversao.setItemAt(e.result, dgOrigemConversao.selectedIndex);
+		Alert.show(e.result.mensagem, " Aviso! ");		
+		_ro_origemConversao.listOrigemConversao(listaRegistroOrigem);
 		clearRecord();
 		leituraTxtInput();
 	}

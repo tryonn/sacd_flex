@@ -15,7 +15,23 @@ class Origem_conversaoDAO implements Origem_conversaoInterface{
     }
     
     public function atualizar(Origem_conversaoVO $origem) {
-
+        try {            
+            $sqlUpdate = "UPDATE origem_conversao set descricao=?, nome_igreja=?, dtConversao=?,ano=? where id=?";
+            
+            $stmt = $this->conn->prepare($sqlUpdate);
+            $stmt->bindParam(1,utf8_decode($origem->getDescricao()), PDO::PARAM_STR);
+            $stmt->bindParam(2,utf8_decode($origem->getNome_igreja()), PDO::PARAM_STR);
+            $stmt->bindParam(3,$origem->getDtConversao());
+            $stmt->bindParam(4,$origem->getAno(), PDO::PARAM_INT);
+            $stmt->bindParam(5,$origem->getId(), PDO::PARAM_INT);
+            $stmt->execute();  
+            
+//            var_dump($stmt->execute());
+            $retorno['mensagem'] = "Cadastro efetuado com Sucesso!000";
+        } catch (Exception $e) {
+            $retorno['mensagem'] = "Error : " . $e->getMessage();           
+        }
+        return $retorno;
     }
     public function excluir($id) {
         
@@ -68,8 +84,7 @@ class Origem_conversaoDAO implements Origem_conversaoInterface{
 
     }
     public function inserir(Origem_conversaoVO $origem) {
-        try {
-            
+        try {            
             $sqlInsert = "INSERT INTO origem_conversao (descricao, nome_igreja, dtConversao,ano) 
                 values (?,?,?,?)";
             

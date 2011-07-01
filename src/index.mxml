@@ -6,13 +6,12 @@
 			   xmlns:swiz="http://swiz.swizframework.org" 
 			   xmlns:config="config.*" 
 			   xmlns:flexlib="http://code.google.com/p/flexlib/" 
-			   width="100%" height="100%" backgroundColor="#FFFFFF" 
+			   width="100%" height="100%"
 			   preloaderChromeColor="#084E5D" pageTitle="SACD - Sistema Aliança com Deus" currentState="Login"
 			   >	
 	<s:layout>
 		<s:BasicLayout/>
 	</s:layout>
-	<fx:Style source="index_1.css"/>
 
 	<fx:Script>
 		<![CDATA[
@@ -251,21 +250,24 @@
 			]]>
 		</flexlib:creationComplete>
 	</flexlib:MDICanvas>	
-	<s:Panel width="292" height="216" title="Acesso ao Sistema!" id="panelLogin" horizontalCenter="-1" verticalCenter="2" styleName="login" color="#FFFFFF" includeIn="Login">
+	<s:Panel width="524" height="241" title="Acesso ao sacd - Sistema Aliança com Deus" id="panelLogin" horizontalCenter="-1" verticalCenter="14" includeIn="Login">
 		<s:layout>
 			<s:BasicLayout/>
 		</s:layout>
 		<s:controlBarContent>
 		
 		</s:controlBarContent>
-		<s:Button id="btnAcesso" x="118" y="93" label="Acesso" click="btnAcesso_clickHandler(event)"/>
-		<s:Label x="46" y="37" text="Login" color="#333333"/>
-		<s:Label x="46" y="64" text="Senha" color="#333333"/>
-		<s:TextInput id="txtlogin" text="@{user.login}" x="93" y="32" color="#333333"/>
-		<s:TextInput id="txtsenha" text="@{user.senha}" x="93" y="64" displayAsPassword="true" color="#333333"/>
+		<s:Button id="btnAcesso" x="404" y="112" label="Acesso" click="btnAcesso_clickHandler(event)"/>
+		<s:Label x="372" y="9" text="Login"/>
+		<s:Label x="372" y="62" text="Senha"/>
+		<s:TextInput id="txtlogin" text="@{user.login}" x="371" y="29"/>
+		<s:TextInput id="txtsenha" text="@{user.senha}" x="371" y="82" displayAsPassword="true"/>
+		<s:Label x="10" y="35" text="Seja Bem Vindo ao SACD"/>
+		<mx:VRule x="230" y="24" height="140"/>
 	</s:Panel>
 	<s:HGroup includeIn="Principal" x="-1" y="2" width="100%" height="45" verticalAlign="middle">
 		<s:ToggleButton label="Toggle Button"/>
 		<s:Button label="Button" buttonMode="true"/>
 	</s:HGroup>
+	<fx:Style source="assets/skins/vistaremix/vistaremix.css"/>
 </s:Application>
