@@ -4,6 +4,7 @@ import events.MDIEvent;
 
 import views.dependente.DependenteView;
 import views.endereco.EnderecoView;
+import views.membro.MembroView;
 import views.origem_conversao.OrigemConversaoView;
 
 public function janelaUser():void
@@ -21,4 +22,9 @@ public function janelaEndereroView():void
 public function janelaOrigemConversaoView():void
 {
 	dispatchEvent(new MDIEvent(MDIEvent.OPEN_WINDOW, new OrigemConversaoView()));
+}
+
+public function janelaMembroView():void
+{
+	dispatchEvent(new MDIEvent(MDIEvent.OPEN_WINDOW, new MembroView()));
 }

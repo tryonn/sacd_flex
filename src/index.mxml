@@ -56,7 +56,7 @@
 			public function onResultLogin(e:ResultEvent):void{
 				if(e.result.login == "OK"){
 					//Mensagem que vem do php
-					Alert.show(".:" + e.result.user + " :.", "Seja Bem vindo ao Simad");
+					//Alert.show(".:" + e.result.user + " :.", "Seja Bem vindo ao Simad");
 					/* 					dispatchEvent(new Event("login_OK")); */
 					currentState = "Principal";
 					lbUser.text = e.result.nome; 
@@ -144,6 +144,12 @@
 					case "3":
 						janelaMembros();
 						break;
+					case "3":
+						janelaMembros();
+						break;
+					case "5":
+						janelaMembroView();
+						break;					
 					default:
 						Alert.show("Janela não Exite","Atenção!!!");
 				}

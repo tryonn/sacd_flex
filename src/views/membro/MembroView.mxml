@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<code:MDIWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				xmlns:code="http://code.google.com/p/flexlib/" 
+				layout="absolute" width="960" height="520" 
+				xmlns:componente="views.membro.componente.*" xmlns:components="components.*"
+				title="Cadastro de Membros" creationComplete="init(event)">
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script source="actions/membroActions.as"/>
+	<mx:DataGrid bottom="56" left="10" right="10" top="337" id="dgMembro" dataProvider="{_datagridMembro}"
+				 change="registroSelecionado(event)" click="dgMembro_clickHandler(event)">
+		<mx:columns>
+			<mx:DataGridColumn dataField="nome" headerText="Nome"/>
+			<mx:DataGridColumn dataField="data_nascimento" headerText="Data de Nascimento"/>
+			<mx:DataGridColumn dataField="estado_civil" headerText="Estado Civil"/>
+			<mx:DataGridColumn dataField="batizado" headerText="Batizado"/>			
+		</mx:columns>
+	</mx:DataGrid>
+	<s:HGroup left="10" right="9" gap="0" verticalAlign="middle" bottom="10" height="38">
+		<mx:HRule width="100%" visible="false"/>
+		<s:Button label="Novo" id="btnNovo" cornerRadius="5" click="btnNovo_clickHandler(event)"/>
+		<s:Button label="Salvar" id="btnSalvar" cornerRadius="5" click="btnSalvar_clickHandler(event)"/>
+		<s:Button label="Alterar" id="btnAlterar" cornerRadius="5" click="btnAlterar_clickHandler(event)"/>
+		<s:Button label="Excluir" id="btnDeleta" cornerRadius="5" click="btnDeleta_clickHandler(event)"/>
+		<s:Button label="Cancelar" id="btnCancelar" cornerRadius="5" click="btnCancelar_clickHandler(event)"/>
+	</s:HGroup>
+	<s:Panel y="10" height="180" left="10" title="Dados Pessoais" dropShadowVisible="false" width="472">
+		<s:Label x="10" y="10" text="Nome:"/>
+		<s:TextInput x="10" y="30" width="262" id="txtNome"/>
+		<s:Label x="280" y="10" text="Data de Nascimento:"/>
+		<components:DateFieldpt x="280" y="29" id="dtNasc"/>
+		<s:Label x="10" y="70" text="Tel. Celular:"/>
+		<s:Label x="114" y="70" text="Tel. Residencial:"/>
+		<s:Label x="217" y="70" text="Estado Civil:"/>
+		<s:TextInput x="10" y="90" width="91" id="txtCel"/>
+		<s:TextInput x="113" y="90" width="91" id="txtRes"/>
+		<mx:ComboBox x="212" y="89" width="163" id="_cbEstadoCivil" dataProvider="{_estadoCivil}" selectedIndex="0"/>
+	</s:Panel>
+	<s:Panel y="10" height="180" title="Dados Evangelico" dropShadowVisible="false" left="490" width="450">
+		<s:Label x="10" y="10" text="Origem de como se converteu:"/>
+		<s:Label x="186" y="72" text="Data de Batismo:"/>
+		<components:DateFieldpt x="186" y="91" id="dtBatismo"/>
+		<s:Label x="17" y="72" text="Batizado:"/>
+		<mx:ComboBox x="12" y="91" width="163" id="_cbBatizado" dataProvider="{_batizado}" selectedIndex="0"/>
+		<mx:ComboBox x="9" y="30" width="170" id="_cbOrigem" dataProvider="{comboOrigem}" labelField="descricao" selectedIndex="0"/>
+	</s:Panel>
+	<s:Panel y="203" height="126" left="9" title="Endereço" dropShadowVisible="false" right="18">
+		<s:Label x="17" y="10" text="Endereço:"/>
+		<mx:ComboBox x="12" y="29" width="163" id="_cbEndereco" dataProvider="{comboCidade}" labelField="bairro" selectedIndex="0"/>
+		<s:Button x="183" y="31" label="Novo" toolTip="Click para adiciona um novo endereço."/>
+	</s:Panel>
+</code:MDIWindow>

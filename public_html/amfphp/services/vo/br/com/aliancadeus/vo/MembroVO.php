@@ -9,7 +9,6 @@ class MembroVO {
       public $id;
       public $nome;
       public $data_nascimento;
-      public $data_conversao;
       public $fone_cel;
       public $fone_resid;
       public $estado_civil;
@@ -48,15 +47,7 @@ class MembroVO {
       public function setData_nascimento($data_nascimento) {
           $this->data_nascimento = $data_nascimento;
       }
-
-      public function getData_conversao() {
-          return $this->data_conversao;
-      }
-
-      public function setData_conversao($data_conversao) {
-          $this->data_conversao = $data_conversao;
-      }
-
+      
       public function getFone_cel() {
           return $this->fone_cel;
       }

@@ -6,8 +6,8 @@ include_once '../vo/br/com/aliancadeus/vo/MembroVO.php';
  */
 interface MembroInterface {
     
-    public function inserir(MembroVO $membro);
+    public function insert(MembroVO $membro);
     public function getListar();
-    public function atualizar(MembroVO $membro);
+    public function update(MembroVO $membro);
     public function excluir($id);
 }

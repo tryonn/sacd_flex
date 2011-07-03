@@ -65,3 +65,61 @@ foreach ( $stm->fetchAll( PDO::FETCH_OBJ ) as $origem){
 //    echo "Erro LOGIN FALIE";
 //}
 ?>
+
+
+
+	protected function leituraBtn():void
+	{
+		btnAlterar.enabled= false;
+		btnCancelar.enabled= false;
+		btnDeleta.enabled= false;
+		btnNovo.enabled= true;
+		btnSalvar.enabled= false;
+	}
+	
+	protected function escritaBtn():void
+	{
+		btnAlterar.enabled= false;
+		btnCancelar.enabled= true;
+		btnDeleta.enabled= false;
+		btnNovo.enabled= false;
+		btnSalvar.enabled= true;
+	}
+	protected function leituraTxtInput():void
+	{
+		txtCel.enabled 			= false;
+		txtNome.enabled 		= false;
+		txtRes.enabled 			= false;
+		cbBatizado.enabled 		= false;
+		cbEstadoCivil.enabled 	= false;
+		cbOrigem.enabled 		= false;
+		cbEndereco.enabled 		= false;
+		dtBatismo.enabled		= false;
+		dtNasc.enabled			= false;
+	}
+	
+	protected function escritaTxtInput():void
+	{
+		txtCel.enabled 			= true;
+		txtNome.enabled 		= true;
+		txtRes.enabled 			= true;
+		cbBatizado.enabled 		= true;
+		cbEstadoCivil.enabled 	= true;
+		cbOrigem.enabled 		= true;
+		cbEndereco.enabled 		= true;
+		dtBatismo.enabled		= true;
+		dtNasc.enabled			= true;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+

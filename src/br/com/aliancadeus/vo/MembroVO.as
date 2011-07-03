@@ -7,7 +7,6 @@ package br.com.aliancadeus.vo
 		public var id:int;
 		public var nome:String;
 		public var data_nascimento:String;
-		public var data_conversao:String;
 		public var fone_cel:String;
 		public var fone_resid:String;
 		public var estado_civil:String;
