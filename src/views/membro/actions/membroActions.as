@@ -5,6 +5,7 @@ import br.com.flexbrasilia.formatters.MySQLDateHelper;
 
 import mx.collections.ArrayCollection;
 import mx.controls.Alert;
+import mx.events.CloseEvent;
 import mx.events.FlexEvent;
 import mx.rpc.events.ResultEvent;
 
@@ -157,12 +158,24 @@ public function listaRegistroOrigem(e:ResultEvent):void
 		setIndexDataCbEstadoCivil(_cbEstadoCivil, _registroSelecionado.estado_civil);
 	}
 	/*------------------ Evento dos btn's ---------------------*/
-	
+	protected function clearRecord():void
+	{
+		txtCel.text 					= "";
+		txtNome.text 					= "";
+		txtRes.text 					= "";
+		_cbBatizado.selectedIndex 		= 0;
+		_cbEstadoCivil.selectedIndex 	= 0;
+		_cbOrigem.prompt 				= "Escolha uma opção";
+		_cbEndereco.prompt				= "Escolha uma opção";
+		dtBatismo.text					= "";
+		dtNasc.text						= "";
+	}
 	protected function btnNovo_clickHandler(event:MouseEvent):void
 	{
 		// TODO Auto-generated method stub
 		txtNome.setFocus();
-		escritaTxtInput();
+		clearRecord();
+		escritaTxtInput();		
 	}
 	
 	protected function btnSalvar_clickHandler(event:MouseEvent):void
@@ -192,6 +205,9 @@ public function listaRegistroOrigem(e:ResultEvent):void
 			_membro.origem_conversao_id = objOrigem.id.toString();
 			
 			_ro_membro.insert(_membro,onSaveResult);
+			clearRecord();
+			leituraTxtInput();
+			leituraBtn();
 		} else {
 			Alert.show(" Todos os campos são obrigatorios ","Atenção");
 		}
@@ -219,18 +235,50 @@ public function listaRegistroOrigem(e:ResultEvent):void
 		_membro.fone_resid 				= txtRes.text;
 		_membro.nome 					= txtNome.text;
 		_membro.origem_conversao_id 	= objOrigem.id.toString();
+		
+		_ro_membro.update(_membro, onUpdate);
+	}
+	protected function onUpdate(e:ResultEvent):void
+	{
+		_datagridMembro.setItemAt(e.result, dgMembro.selectedIndex);
+		_ro_membro.listMembro(listMembro);
+		Alert.show(e.result.mensagem, " Aviso! ");
+		clearRecord();
+		leituraTxtInput();
 	}
 	
 	
 	protected function btnDeleta_clickHandler(event:MouseEvent):void
 	{
 		// TODO Auto-generated method stub
+		Alert.noLabel = ".:Não:.";
+		Alert.yesLabel = ".:Sim:.";
+		Alert.show('Deseja realmente excluir o registro?', 'Atenção', Alert.YES|Alert.NO, null, excluirRegistro);
+	}
+	protected function excluirRegistro(e:CloseEvent):void
+	{
+		if(e.detail == Alert.YES){
+			_registroSelecionado = dgMembro.selectedItem as MembroVO;
+			_ro_membro.deleta(_registroSelecionado, excluirRecord);
+			leituraTxtInput();
+		}
+	}
+	protected function excluirRecord(e:ResultEvent):void
+	{
+		Alert.show(e.result.mensagem , "Mensagem");
+		_datagridMembro.removeItemAt(dgMembro.selectedIndex);
+		btnDeleta.enabled = false;
+		clearRecord();
+		_ro_membro.listMembro(listMembro);
 	}
 	
 	
 	protected function btnCancelar_clickHandler(event:MouseEvent):void
 	{
 		// TODO Auto-generated method stub
+		clearRecord();
+		leituraBtn();
+		leituraTxtInput();
 	}
 
 /*--------------------------------------------------------------------------------------------------------------*/

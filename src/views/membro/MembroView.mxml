@@ -5,8 +5,7 @@
 				xmlns:code="http://code.google.com/p/flexlib/" 
 				layout="absolute" width="960" height="520" 
 				xmlns:componente="views.membro.componente.*" xmlns:components="components.*"
-				title="Cadastro de Membros" creationComplete="init(event)">
-
+				title="Cadastro de Membros" creationComplete="init(event)" xmlns:controls="com.flexpernambuco.controls.*">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -14,6 +13,7 @@
 	<mx:DataGrid bottom="56" left="10" right="10" top="337" id="dgMembro" dataProvider="{_datagridMembro}"
 				 change="registroSelecionado(event)" click="dgMembro_clickHandler(event)">
 		<mx:columns>
+			<mx:DataGridColumn dataField="id" headerText="ID"/>
 			<mx:DataGridColumn dataField="nome" headerText="Nome"/>
 			<mx:DataGridColumn dataField="data_nascimento" headerText="Data de Nascimento"/>
 			<mx:DataGridColumn dataField="estado_civil" headerText="Estado Civil"/>
@@ -46,11 +46,12 @@
 		<components:DateFieldpt x="186" y="91" id="dtBatismo"/>
 		<s:Label x="17" y="72" text="Batizado:"/>
 		<mx:ComboBox x="12" y="91" width="163" id="_cbBatizado" dataProvider="{_batizado}" selectedIndex="0"/>
-		<mx:ComboBox x="9" y="30" width="170" id="_cbOrigem" dataProvider="{comboOrigem}" labelField="descricao" selectedIndex="0"/>
+		<mx:ComboBox x="9" y="30" width="170" id="_cbOrigem" dataProvider="{comboOrigem}" labelField="descricao"
+					 selectedIndex="-1" prompt="Escolha uma opção"/>
 	</s:Panel>
 	<s:Panel y="203" height="126" left="9" title="Endereço" dropShadowVisible="false" right="18">
 		<s:Label x="17" y="10" text="Endereço:"/>
-		<mx:ComboBox x="12" y="29" width="163" id="_cbEndereco" dataProvider="{comboCidade}" labelField="bairro" selectedIndex="0"/>
-		<s:Button x="183" y="31" label="Novo" toolTip="Click para adiciona um novo endereço."/>
+		<mx:ComboBox x="12" y="29" width="163" id="_cbEndereco" dataProvider="{comboCidade}" labelField="bairro" 
+					 selectedIndex="-1" prompt="Escolha uma opção"/>
 	</s:Panel>
 </code:MDIWindow>

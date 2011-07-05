@@ -41,7 +41,6 @@ class MembroDAO implements MembroInterface{
             $sqlInsert = "UPDATE membros set
                               nome=?
                             , data_nascimento=?
-                            , data_conversao=?
                             , fone_cel=?
                             , fone_resid=?
                             , estado_civil=?
@@ -118,22 +117,34 @@ class MembroDAO implements MembroInterface{
     
     public function excluir($id){
         
-        $valida = "select * from enderecos
-                    inner join membros on membros.enderecos_id = enderecos.id
-                    where enderecos.id = '$id'";
-        $stmt = $this->conn->prepare($valida); 
-        $stmt->bindParam(1,$id,PDO::PARAM_INT);
-        $rs = $stmt->execute();
-       
-        if($stmt->rowCount()>0){
-            $rs = $stmt->fetchAll( );
-//             var_dump($rs);
-            $retorno['mensagem'] = "Cadastro com o ID :  '$id' " . utf8_decode(' não ') . "pode ser deletado,
-               pois esta associado a um Membro!";                            
-        } else
-        {
-            try {           
-                    $sqlDelete = "DELETE FROM enderecos WHERE id= '$id'";
+//        $valida = "select * from membros
+//                    inner join membros on membros.enderecos_id = enderecos.id
+//                    where enderecos.id = '$id'";
+//        $stmt = $this->conn->prepare($valida); 
+//        $stmt->bindParam(1,$id,PDO::PARAM_INT);
+//        $rs = $stmt->execute();
+//       
+//        if($stmt->rowCount()>0){
+//            $rs = $stmt->fetchAll( );
+////             var_dump($rs);
+//            $retorno['mensagem'] = "Cadastro com o ID :  '$id' " . utf8_decode(' não ') . "pode ser deletado,
+//               pois esta associado a um Membro!";                            
+//        } else
+//        {
+//            try {           
+//                    $sqlDelete = "DELETE FROM enderecos WHERE id= '$id'";
+//                    $stmt = $this->conn->prepare($sqlDelete);
+//                    $stmt->bindParam(1,$id,PDO::PARAM_INT);
+//                    $stmt->execute();
+//                    $retorno['mensagem'] = "Cadastro" . utf8_decode(' excluído ') . "com Sucesso!";            
+//            } catch (Exception $e) {
+//                    $retorno['mensagem'] = "Error : " . $e->getMessage(); 
+//            }
+//        }
+        
+        
+        try {           
+                    $sqlDelete = "DELETE FROM membros WHERE id= '$id'";
                     $stmt = $this->conn->prepare($sqlDelete);
                     $stmt->bindParam(1,$id,PDO::PARAM_INT);
                     $stmt->execute();
@@ -141,7 +152,6 @@ class MembroDAO implements MembroInterface{
             } catch (Exception $e) {
                     $retorno['mensagem'] = "Error : " . $e->getMessage(); 
             }
-        }
         return $retorno;
     }
 }

@@ -46,7 +46,7 @@
 	<s:TextInput x="16" y="26" width="176" id="txtCidade" tabIndex="0"
 				 toolTip="Campo Obrigatorio"/>
 	<s:TextInput x="198" y="26" width="316" id="txtBairro" tabIndex="1"/>
-	<s:TextInput x="198" y="74" width="108" id="txtCep" tabIndex="3"/>
+	<s:TextInput x="198" y="74" width="108" id="txtCep" tabIndex="3" buttonMode="true"/>
 	<s:TextInput x="313" y="74" width="68" id="txtNumero" tabIndex="4" />
 	<mx:ComboBox x="16" y="73" width="174" id="_cbEstado" selectedIndex="0"
 				dataProvider="{_estadosBr}" tabIndex="2"/>

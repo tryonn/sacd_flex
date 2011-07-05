@@ -18,9 +18,16 @@ final class PDOConnectionFactory {
     private function __construct() {
         
         $db_type = 'mysql';  //ex) mysql, postgresql, oracle
+
         $db_name = 'sacd';
         $user = 'root' ;
         $password = '' ;
+        
+//        $db_name = 'alianca_com_deus';
+//        $user = 'sitatec' ;
+//        $password = '86395653' ;
+        
+        
         $host = 'localhost' ;
         try {
             $dsn = "$db_type:host=$host;dbname=$db_name";
